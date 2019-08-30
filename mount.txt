@@ -1,0 +1,1 @@
+sudo mount -v -t cifs -o username=user,sec=ntlm,rw,uid=user //a_windows_box/source /home/user/source
