@@ -1,0 +1,4 @@
+C:\Program Files (x86)\VideoLAN\VLC>vlc --rawvid-width 1280 --rawvid-height 532 --rawvid-fps 24 --rawvid-chroma I420 c:\your\yuv\file\to\play.yuv
+C:\Program Files (x86)\VideoLAN\VLC>vlc --demux=h264 c:\your\h264\file\to\play.264
+
+ffmpeg -i sample.flv -vf "showinfo" -f null /dev/null
