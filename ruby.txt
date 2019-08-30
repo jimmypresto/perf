@@ -1,0 +1,23 @@
+# See string allocations on string literal -- string is by default mutable
+# 1. Do 'abc'.freeze
+# 2. Turn immutable string on by defualt:
+# export RUBYOPT=--enable-frozen-string-literal
+require 'objspace'
+GC.start
+GC.disable
+puts ObjectSpace.count_objects[:T_STRING]
+1_000_000.times {'a'}
+puts ObjectSpace.count_objects[:T_STRING]
+GC.enable
+GC.start
+puts ObjectSpace.count_objects[:T_STRING]
+GC.disable
+1_000_000.times {'a'.freeze}
+puts ObjectSpace.count_objects[:T_STRING]
+
+# Method 2
+# gem install memory_profiler
+require 'memory_profiler'
+MemoryProfiler.report do
+  1_000_000.times {'a'}
+end.pretty_print
