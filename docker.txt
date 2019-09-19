@@ -1,7 +1,10 @@
 docker run --rm -it --security-opt seccomp=unconfined <repo>:<tag> /bin/bash
 docker run --rm -it <repo>:<tag> /bin/bash
 docker run --rm -it --cpus=".5" --cpuset-cpus=1 -p 8080:8080 <repo>:<tag>
+docker start <container_id>
 
 docker-compose run --rm --service-ports <service>
-docker-compose run --rm -v ~/hostlogs:/var/log/hostlogs --service-ports <service>
+# Once exited, look for this exited container id, then 'docker start <container_id>' to re-start it
+#    Downtime started for host 6c7ef3d1c096.
+docker-compose run -v ~/hostlogs:/var/log/hostlogs --service-ports <service>
 docker-compose run --service-ports <service> rdebug-ide --host "0.0.0.0" --port "1234" --dispatcher-port "3389" -- bin/rails s -b "0.0.0.0" -p "8080"
