@@ -4,7 +4,7 @@ docker run --rm -it --cpus=".5" --cpuset-cpus=1 -p 8080:8080 <repo>:<tag>
 docker run -v ~/hostlogs:/var/log/hostlogs --env-file ./a.env -p 8080:8080 <repo>:<tag>
 
 # Once a container exited, not being removed, restart with the exited container id
-docker start <container_id>
+docker start -a <container_id>
 
 docker-compose run --rm --service-ports <service>
 docker-compose run -v ~/hostlogs:/var/log/hostlogs --service-ports <service>
