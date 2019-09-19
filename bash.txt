@@ -1,0 +1,2 @@
+# Launch an interactive bash shell
+bash --init-file <(echo "ls; pwd")
