@@ -1,0 +1,2 @@
+# Find certain event log's json strings, pipe couple field values into CSV format 
+cat a.log | jq -r '. | select(.event=="EVENT_YOU_CARE") | [.field1,.["@field2"],.field3] | @csv'
