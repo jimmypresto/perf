@@ -1,2 +1,6 @@
-# Find certain event log's json strings, pipe couple field values into CSV format 
+# Find certain event log's json strings, pipe couple field values into csv format 
 cat a.log | jq -r '. | select(.event=="EVENT_YOU_CARE") | [.field1,.["@field2"],.field3] | @csv'
+
+# Nested json string field, find one field value of it and csv format
+# fromjson requires array-ify, use array-index [0] to remove the array
+cat a.log | jq -r '. | [[.nested_json_string_field|fromjson|.a_nested_field][0]] | @csv'
