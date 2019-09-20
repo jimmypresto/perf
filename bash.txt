@@ -1,2 +1,5 @@
 # Launch an interactive bash shell
 bash --init-file <(echo "ls; pwd")
+
+# Search and greph on only text files
+find . -type f -exec grep -Iq . {} \; -print 2>/dev/null | xargs grep -H text_to_search
