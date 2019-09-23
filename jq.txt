@@ -4,3 +4,6 @@ cat a.log | jq -r '. | select(.event=="EVENT_YOU_CARE") | [.field1,.["@field2"],
 # Nested json string field, find one field value of it and csv format
 # fromjson requires array-ify, use array-index [0] to remove the array
 cat a.log | jq -r '. | [[.nested_json_string_field|fromjson|.a_nested_field][0]] | @csv'
+
+# Merge two json files
+jq -s '.[0] * .[1]' file1 file2
