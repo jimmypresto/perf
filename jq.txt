@@ -5,5 +5,6 @@ cat a.log | jq -r '. | select(.event=="EVENT_YOU_CARE") | [.field1,.["@field2"],
 # fromjson requires array-ify, use array-index [0] to remove the array
 cat a.log | jq -r '. | [[.nested_json_string_field|fromjson|.a_nested_field][0]] | @csv'
 
-# Merge two json files
-jq -s '.[0] * .[1]' file1 file2
+# Merge objects from 2+ json files by id key
+jq -c -s 'flatten | group_by(.id) | map(add)' <(jq -s . a.json) <(jq -s . b.json) <(jq -s . c.json)
+[{"id":1,"a":1,"b":1,"c":1},{"id":2,"a":2,"b":2,"c":2}]
