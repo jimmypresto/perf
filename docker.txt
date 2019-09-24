@@ -1,7 +1,7 @@
 docker run --rm -it --security-opt seccomp=unconfined <repo>:<tag> /bin/bash
 docker run --rm -it <repo>:<tag> /bin/bash
 docker run --rm -it --cpus=".5" --cpuset-cpus=1 -p 8080:8080 <repo>:<tag>
-docker run -v ~/hostlogs:/var/log/hostlogs --env-file ./a.env -p 8080:8080 <repo>:<tag>
+docker run -v ~/hostlogs:/var/log/hostlogs --env-file ./a.env -p 1234:1234 -p 8080:8080 -p 3000:3000 <repo>:<tag>
 
 # Once a container exited, not being removed, restart with the exited container id
 docker start -a <container_id>
