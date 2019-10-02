@@ -6,13 +6,13 @@
 #   COPY --from=ksrc /kernel-dev.tar /
 #   COPY --from=ksrc /kernel.tar /
 #   CMD ["/bin/bash"] 
-# Docker build and docker run and copy tar files out to your host 
+# Docker build/run and copy tar files out to your host 
 # (later we will extract them on your build machien)
 #   docker build -f linuxkit-bionic.dockfile -t linuxkit-kernel-headers:4.9.184 .
 
 # Docker run your bpftrace build machine (ubnutu:bionic)
-# Build and install bcc from source, follow instructions: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
-# Build and install bpftrace from source, follow instructions: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
+# Build and install bcc from source, follow https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
+# Build and install bpftrace from source, follow https://github.com/iovisor/bpftrace/blob/master/INSTALL.md#building-bpftrace-1
 
 # /sys/kernel/debug/tracing/available_events: No such file or directory"
 mount -t debugfs none /sys/kernel/debug/
