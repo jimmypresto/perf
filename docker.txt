@@ -1,4 +1,4 @@
-docker run -it --security-opt seccomp=unconfined --privileged -v ~/hostlogs:/var/log/hostlogs <repo>:<tag> /bin/bash
+docker run -it --cap-add=ALL --security-opt seccomp=unconfined --privileged -v ~/hostlogs:/var/log/hostlogs <repo>:<tag> /bin/bash
 docker run -it --security-opt seccomp=unconfined --privileged -v ~/hostlogs:/var/log/hostlogs -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/fs/bpf:/sys/fs/bpf <repo>:<tag> /bin/bash
 docker run --rm -it --security-opt seccomp=unconfined <repo>:<tag> /bin/bash
 docker run --rm -it <repo>:<tag> /bin/bash
