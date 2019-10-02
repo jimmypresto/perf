@@ -4,8 +4,10 @@
 #   FROM linuxkit/kernel:4.9.184 AS ksrc
 #   FROM ubuntu:bionic
 #   COPY --from=ksrc /kernel-dev.tar /
+#   COPY --from=ksrc /kernel.tar /
 #   CMD ["/bin/bash"] 
-# Docker build and docker run and copy kernel-dev.tar out to your host 
+# Docker build and docker run and copy tar files out to your host 
+# (later we will extract them on your build machien)
 #   docker build -f linuxkit-bionic.dockfile -t linuxkit-kernel-headers:4.9.184 .
 
 # Docker run your bpftrace build machine (ubnutu:bionic)
