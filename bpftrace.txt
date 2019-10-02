@@ -1,0 +1,16 @@
+# Copy matching linuxkit kernel header
+#   https://github.com/falcosecurity/falco/issues/657
+# Save following lines, change the kernel version string (4.9.184) to yours, in a dockerfile (linuxkit-bionic.dockfile)
+#   FROM linuxkit/kernel:4.9.184 AS ksrc
+#   FROM ubuntu:bionic
+#   COPY --from=ksrc /kernel-dev.tar /
+#   CMD ["/bin/bash"] 
+# Docker build and docker run and copy kernel-dev.tar out to your host 
+#   docker build -f linuxkit-bionic.dockfile -t linuxkit-kernel-headers:4.9.184 .
+
+# Docker run your bpftrace build machine (ubnutu:bionic)
+# Build and install bcc from source, follow instructions: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
+# Build and install bpftrace from source, follow instructions: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
+
+# /sys/kernel/debug/tracing/available_events: No such file or directory"
+mount -t debugfs none /sys/kernel/debug/
