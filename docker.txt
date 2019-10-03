@@ -11,6 +11,13 @@ docker start -a <container_id>
 docker-compose run --rm --service-ports <service>
 docker-compose run -v ~/hostlogs:/var/log/hostlogs --service-ports <service>
 docker-compose run --service-ports <service> rdebug-ide --host "0.0.0.0" --port "1234" --dispatcher-port "3389" -- bin/rails s -b "0.0.0.0" -p "8080"
+
+# Launch via docker-compose and run strace/bpftrace in container, you may try these changes in docker compose yml
+#    security_opt:
+#      - seccomp:unconfined
+#    privileged: true
+#    cap_add:
+#      - ALL
 # This allows you to get to a bash, start rails app repeatedly without exiting container
 #   bin/rails s -b 0.0.0.0 -p 8080
 docker-compose run -v ~/hostlogs:/var/log/hostlogs -p 1234:1234 -p 8080:8080 -p 3000:3000 <service> bash
