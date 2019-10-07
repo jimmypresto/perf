@@ -2,12 +2,41 @@ Visualizing Performance with Flame Graphs
 http://www.brendangregg.com/Slides/USENIX_ATC2017_flamegraphs.pdf
 https://youtu.be/D53T1Ejig1Q
 
+sysctl -w kernel.perf_event_max_stack=512
+Java's -XX:MaxInlineSize and -XX:InlineSmallCode can be tuned
+
+Linux	CPU	Flame	Graphs: Linux	4.9+,	via	BPF:
 git clone --depth 1 https://github.com/brendangregg/FlameGraph
 git clone --depth 1 https://github.com/iovisor/bcc
 ./bcc/tools/profile.py -dF 99 30 | ./FlameGraph/flamegraph.pl > perf.svg
 
-Shows	who	issued	disk	I/O	(sync	reads	&	writes):
+perf record -e page-faults -p PID -g -- sleep 120
+# Shows	who	issued	disk	I/O	(sync	reads	&	writes):
 perf record -e block:block_rq_insert -a -g -- sleep 60
+# Show	why	Java	blocked	and	stopped	running	on-CPU:
+perf record -e context-switches -p PID -g -- sleep 5
+
+http://www.brendangregg.com/blog/2016-02-01/linux-wakeup-offwake-profiling.html
+offcputime -fu 10 > out.offcpu
+flamegraph.pl --color=io --countname=us < out.offcpu > offcpu.svg
+wakeuptime -fu 10 > out.wakeup
+flamegraph.pl --color=waker --countname=us < out.wakeup > wakeup.svg 
+
+# Combined off-cpu & wakeup
+offwaketime -fu 10 > out.offwake
+flamegraph.pl --color=chain --countname=us < out.offwake > offwake.svg 
+
+hcps://github.com/corpaul/flamegraphdif
+
+CPU	Cache	Misses: sampling	via	Last	Level	Cache	loads:
+perf record -e LLC-loads -c 10000 -a -g -- sleep 5; jmaps
+perf script -f comm,pid,tid,cpu,time,event,ip,sym,dso > out.stacks
+
+# TCP	transmit,	using	dynamic	tracing:	
+perf probe tcp_sendmsg
+perf record -e probe:tcp_sendmsg -a -g -- sleep 1; jmaps
+perf script -f comm,pid,tid,cpu,time,event,ip,sym,dso,trace > out.stacks
+perf probe --del tcp_sendmsg
 
 # Copy matching linuxkit kernel header
 #   https://github.com/falcosecurity/falco/issues/657
