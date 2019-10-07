@@ -6,6 +6,9 @@ git clone --depth 1 https://github.com/brendangregg/FlameGraph
 git clone --depth 1 https://github.com/iovisor/bcc
 ./bcc/tools/profile.py -dF 99 30 | ./FlameGraph/flamegraph.pl > perf.svg
 
+Shows	who	issued	disk	I/O	(sync	reads	&	writes):
+perf record -e block:block_rq_insert -a -g -- sleep 60
+
 # Copy matching linuxkit kernel header
 #   https://github.com/falcosecurity/falco/issues/657
 # Save following lines, change the kernel version string (4.9.184) to yours, in a dockerfile (linuxkit-bionic.dockfile)
