@@ -1,3 +1,11 @@
+Visualizing Performance with Flame Graphs
+http://www.brendangregg.com/Slides/USENIX_ATC2017_flamegraphs.pdf
+https://youtu.be/D53T1Ejig1Q
+
+git clone --depth 1 https://github.com/brendangregg/FlameGraph
+git clone --depth 1 https://github.com/iovisor/bcc
+./bcc/tools/profile.py -dF 99 30 | ./FlameGraph/flamegraph.pl > perf.svg
+
 # Copy matching linuxkit kernel header
 #   https://github.com/falcosecurity/falco/issues/657
 # Save following lines, change the kernel version string (4.9.184) to yours, in a dockerfile (linuxkit-bionic.dockfile)
