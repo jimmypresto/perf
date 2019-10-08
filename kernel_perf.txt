@@ -1,0 +1,23 @@
+# https://github.com/JanitorTechnology/dockerfiles/issues/188
+sudo apt-get update -q
+sudo apt-get install -qy linux-tools-generic
+cd /usr/lib/linux-tools
+cd `ls -1 | head -n1`
+sudo rm -f /usr/bin/perf
+sudo ln -s `pwd`/perf /usr/bin/perf
+
+# http://www.brendangregg.com/Slides/DockerCon2017_performance_analysis.pdf
+git clone --depth 1 https://github.com/brendangregg/FlameGraph
+cd FlameGraph
+perf record –F 49 -a –g -- sleep 30
+perf script | ./stackcollapse-perf.pl | ./flamegraph.pl > perf.svg
+
+# https://wiki.ubuntu.com/Debug%20Symbol%20Packages
+# bionic is derived form `lsb_release -cs`
+# /etc/apt/sources.list.d/ddebs.list
+deb http://ddebs.ubuntu.com bionic main restricted universe multiverse
+deb http://ddebs.ubuntu.com bionic-updates main restricted universe multiverse
+deb http://ddebs.ubuntu.com bionic-proposed main restricted universe multiverse
+
+apt install ubuntu-dbgsym-keyring
+apt-get update
