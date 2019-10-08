@@ -7,3 +7,11 @@ find . -type f -exec grep -Iq . {} \; -print 2>/dev/null | xargs grep -H text_to
 # brew install coreutils
 # Gnu date carries the milliseconds part into epoch output
 gdate -d "2019-09-24T22:33:53.794+00:00" +'%s%3N' 2> /dev/null
+
+# Which package owns this file
+dpkg -S /usr/lib/x86_64-linux-gnu/libruby-2.5.so.2.5.5
+libruby2.5:amd64: /usr/lib/x86_64-linux-gnu/libruby-2.5.so.2.5.5
+
+# Which repo provides a package
+apt-cache showpkg libruby2.5:amd64
+2.5.5-1bbox1~bionic1 (/var/lib/apt/lists/ppa.launchpad.net_brightbox_ruby-ng_ubuntu_dists_bionic_main_binary-amd64_Packages.lz4) (/var/lib/dpkg/status)
