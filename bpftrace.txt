@@ -1,15 +1,43 @@
-Visualizing Performance with Flame Graphs
+# Reading materials
+# Visualizing Performance with Flame Graphs
 http://www.brendangregg.com/Slides/USENIX_ATC2017_flamegraphs.pdf
 https://youtu.be/D53T1Ejig1Q
 
-sysctl -w kernel.perf_event_max_stack=512
-Java's -XX:MaxInlineSize and -XX:InlineSmallCode can be tuned
+# Copy matching linuxkit kernel header
+#   https://github.com/falcosecurity/falco/issues/657
+# Save following lines, change the kernel version string (4.9.184) to yours, in a dockerfile (linuxkit-bionic.dockfile)
+#   FROM linuxkit/kernel:4.9.184 AS ksrc
+#   FROM ubuntu:bionic
+#   COPY --from=ksrc /kernel-dev.tar /
+#   COPY --from=ksrc /kernel.tar /
+#   CMD ["/bin/bash"] 
+# Docker build/run and copy tar files out to your host 
+#   docker build -f linuxkit-bionic.dockfile -t linuxkit-kernel-headers:4.9.184 .
+# Later we will extract these tar files onto your build machine's root folder
+#   docker run --rm -it -v ~/hostlogs:/var/log/hostlogs linuxkit-kernel-headers:4.9.184 /bin/bash
+# In docker
+*   cp /*.tar /var/log/hostlogs
 
-Linux	CPU	Flame	Graphs: Linux	4.9+,	via	BPF:
+# Docker run your bpftrace build machine (ubnutu:bionic)
+# Tips: Apt install build packages listed in bpftrace,
+#       Jump back to bcc's steps and finish make and install 
+#       Follow and finish bpftrace's instructions, make and install
+# Instructions to build bcc: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
+# Instructions to build bpftrace: https://github.com/iovisor/bpftrace/blob/master/INSTALL.md#building-bpftrace-1
+
+# /sys/kernel/debug/tracing/available_events: No such file or directory"
+mount -t debugfs none /sys/kernel/debug/
+
+# Kernel config (run once)
+# Running against Java process, Java's -XX:MaxInlineSize and -XX:InlineSmallCode can be tuned
+sysctl -w kernel.perf_event_max_stack=512
+
+# Linux	CPU	Flame	Graphs: Linux	4.9+,	via	BPF:
 git clone --depth 1 https://github.com/brendangregg/FlameGraph
 git clone --depth 1 https://github.com/iovisor/bcc
 ./bcc/tools/profile.py -dF 99 30 | ./FlameGraph/flamegraph.pl > perf.svg
 
+# Other bpftrace usages
 perf record -e page-faults -p PID -g -- sleep 120
 # Shows	who	issued	disk	I/O	(sync	reads	&	writes):
 perf record -e block:block_rq_insert -a -g -- sleep 60
@@ -37,23 +65,3 @@ perf probe tcp_sendmsg
 perf record -e probe:tcp_sendmsg -a -g -- sleep 1; jmaps
 perf script -f comm,pid,tid,cpu,time,event,ip,sym,dso,trace > out.stacks
 perf probe --del tcp_sendmsg
-
-# Copy matching linuxkit kernel header
-#   https://github.com/falcosecurity/falco/issues/657
-# Save following lines, change the kernel version string (4.9.184) to yours, in a dockerfile (linuxkit-bionic.dockfile)
-#   FROM linuxkit/kernel:4.9.184 AS ksrc
-#   FROM ubuntu:bionic
-#   COPY --from=ksrc /kernel-dev.tar /
-#   COPY --from=ksrc /kernel.tar /
-#   CMD ["/bin/bash"] 
-# Docker build/run and copy tar files out to your host 
-# (later we will extract them on your build machien)
-#   docker build -f linuxkit-bionic.dockfile -t linuxkit-kernel-headers:4.9.184 .
-
-# Docker run your bpftrace build machine (ubnutu:bionic)
-# Tips: First apt install packages listed in bpftrace, jump to bcc's and follow make/install, then circle back and finish bpftrace's 
-# Build and install bcc from source, follow https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
-# Build and install bpftrace from source, follow https://github.com/iovisor/bpftrace/blob/master/INSTALL.md#building-bpftrace-1
-
-# /sys/kernel/debug/tracing/available_events: No such file or directory"
-mount -t debugfs none /sys/kernel/debug/
