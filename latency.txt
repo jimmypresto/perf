@@ -1,0 +1,25 @@
+# perf Heat Maps
+# http://www.brendangregg.com/blog/2014-07-01/perf-heat-maps.html
+
+# Capture the disk events
+perf record -e block:block_rq_issue -e block:block_rq_complete -a sleep 120
+perf script > out.blockio
+more out.blockio
+
+# Latency Heat Map Generation
+awk '{ gsub(/:/, "") } $5 ~ /issue/ { ts[$6, $10] = $4 }
+    $5 ~ /complete/ { if (l = ts[$6, $9]) { printf "%.f %.f\n", $4 * 1000000,
+    ($4 - l) * 1000000; ts[$6, $10] = 0 } }' out.blockio > out.lat_us
+./trace2heatmap.pl --unitstime=us --unitslat=us --grid out.lat_us > out.lat.svg
+./trace2heatmap.pl --unitstime=us --unitslat=us --grid --maxlat=15000 \
+    --title="Latency Heat Map: 15ms max" out.lat_us > out.latzoom.svg
+
+# Size Heat Map
+awk '{ gsub(/:/, "") } $5 ~ /complete/ { print $4 * 1000000, ($11 * 512) }' \
+    out.blockio > out.sizes
+./trace2heatmap.pl --unitstime=us --unitslat=bytes out.sizes \
+    --title="Size Heat Map" > out.sizes.svg
+
+# Offset Heat Map (minor)
+# SSD Latency Only
+# Read Latency Only
