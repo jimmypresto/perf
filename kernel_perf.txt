@@ -1,3 +1,14 @@
+# Make sure your docker instance is run with these options, either docker run or docker-compose
+#   docker run -it --cap-add=ALL --security-opt seccomp=unconfined --privileged -v ~/hostlogs:/var/log/hostlogs <repo>:<tag> /bin/bash
+# Alternatively, add these options in your docker yaml:
+#   security_opt:
+#     - seccomp:unconfined
+#   privileged: true
+#   cap_add:
+#     - ALL
+# , then docker-compose run:
+#   docker-compose run -v ~/hostlogs:/var/log/hostlogs -p 8080:8080 -p 8082:8082 <service> bash
+
 # https://github.com/JanitorTechnology/dockerfiles/issues/188
 sudo apt-get update -q
 sudo apt-get install -qy linux-tools-generic
@@ -5,6 +16,11 @@ cd /usr/lib/linux-tools
 cd `ls -1 | head -n1`
 sudo rm -f /usr/bin/perf
 sudo ln -s `pwd`/perf /usr/bin/perf
+
+# Unlift docker restrictions on kernel perf event calls
+# http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
+echo 0 > /proc/sys/kernel/perf_event_paranoid
+echo 0 > /proc/sys/kernel/kptr_restrict
 
 # Download and install libruby2.5.5 symbol package in docker instance
 wget http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu/pool/main/r/ruby2.5/libruby2.5-dbgsym_2.5.5-1bbox1~bionic1_amd64.ddeb
