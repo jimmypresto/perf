@@ -13,3 +13,16 @@ cat ./composite.json | jq --raw-output -s '.[] | [.field1, .field2, .field3, .fi
   while IFS=$'\t' read -r field1 field2 field3 field4; do
     ./process.sh "$field1" "$field2" $field3 "$field4" 
   done
+
+# Output selected fields in string format is better than @csv or @tsv
+awk '/text1|text2/' a.json | jq '. | "\(.field1), \(.field2), \(.["@timestamp"])"'
+
+# Many text2 events with id/timestamp/elapsed 
+# Create a single item, grouped by id, with an array of all text1 events (b.log)
+# A text1 event with a timestamp (b) per id is used to filter out text2 events older than the b
+awk '/text1/' a.json | jq -s '. | group_by(.id) | .[][-1] | { id: .id, b: .["@timestamp"] }' > a.log
+awk '/text2/' a.json | jq -s '. | group_by(.id) | map({ id: .[0].id, elapsed: map({ t: .["@timestamp"], v: .elasped }) })' > b.log
+jq -c -s 'flatten | group_by(.id) | map(add) | .[] | .b as $b | .id as $id | .elapsed | map({id: $id, b: $b, t: .t, v: .v} | select(.t > .b))' \
+  <(jq -s .[] a.log) \
+  <(jq -s .[] b.log) \
+  > combined.log
