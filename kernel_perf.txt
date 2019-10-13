@@ -22,9 +22,9 @@ sudo ln -s `pwd`/perf /usr/bin/perf
 echo 0 > /proc/sys/kernel/perf_event_paranoid
 echo 0 > /proc/sys/kernel/kptr_restrict
 
-# Download and install libruby2.5.5 symbol package in docker instance
-wget http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu/pool/main/r/ruby2.5/libruby2.5-dbgsym_2.5.5-1bbox1~bionic1_amd64.ddeb
-dpkg -i /var/log/hostlogs/libruby2.5-dbgsym_2.5.5-1bbox1_bionic1_amd64.ddeb
+# Download and install libruby2.5.7 symbol package in docker instance
+wget http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu/pool/main/r/ruby2.5/libruby2.5-dbgsym_2.5.7-1bbox3~bionic1_amd64.ddeb
+dpkg -i /var/log/hostlogs/libruby2.5-dbgsym_2.5.7-1bbox3~bionic1_amd64.ddeb
 
 # http://www.brendangregg.com/Slides/DockerCon2017_performance_analysis.pdf
 # The 'perf record' command  samples at 99hz, all CPUs (-a), callstack/symbols (-g --call-graph) and for 60 seconds
