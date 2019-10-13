@@ -39,9 +39,11 @@ git clone --depth 1 https://github.com/iovisor/bcc
 
 # Off-CPU flamegraph
 #   http://www.brendangregg.com/offcpuanalysis.html
-/usr/share/bcc/tools/offcputime -df -p `pgrep -nx mysqld` 30 > out.stacks
+#   /usr/share/bcc/tools/offcputime -df -p `pgrep -nx mysqld` 30 > out.stacks
+/usr/share/bcc/tools/offcputime -df 30 > out.stacks
 git clone https://github.com/brendangregg/FlameGraph
 cd FlameGraph
+# Remember to copy out.stacks into this folder
 ./flamegraph.pl --color=io --title="Off-CPU Time Flame Graph" --countname=us < out.stacks > out.svg
 
 # Other bpftrace usages
