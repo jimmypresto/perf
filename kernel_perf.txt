@@ -9,15 +9,23 @@
 # Then docker-compose run like this:
 #   docker-compose run -v ~/hostlogs:/var/log/hostlogs -p 8080:8080 -p 8082:8082 <service> bash
 
-# https://github.com/linuxkit/linuxkit/blob/master/docs/kernel-perf.md
-# The docker container contains the perf tool; an alternative way to install kernel perf
+# Make sure you have extracted/installed matching kernel symbols and headers. Instructions:
+#    https://github.com/jimmypresto/perf/blob/a031fb7819a08d5aed36e0e0bd13b89879072a81/bpftrace.txt#L6
+
+# The docker container itself, a bit better to use it
+#   https://github.com/linuxkit/linuxkit/blob/master/docs/kernel-perf.md
+# And symlink your previously installed kernel tools to the asking kernel version (`uname -r`)
+alias perf=/proc/1/root/usr/bin/perf
+ln -s /usr/lib/linux-tools/4.18.0-25-generic /usr/lib/linux-tools/4.9.184-linuxkit
+
+# Alternative way to force install perf; it might work too, less preferred 
 # https://github.com/JanitorTechnology/dockerfiles/issues/188
-sudo apt-get update -q
-sudo apt-get install -qy linux-tools-generic
-cd /usr/lib/linux-tools
-cd `ls -1 | head -n1`
-sudo rm -f /usr/bin/perf
-sudo ln -s `pwd`/perf /usr/bin/perf
+#   apt-get update -q
+#   apt-get install -qy linux-tools-generic
+#   cd /usr/lib/linux-tools
+#   cd `ls -1 | head -n1`
+#   sudo rm -f /usr/bin/perf
+#   sudo ln -s `pwd`/perf /usr/bin/perf
 
 # Unlift docker restrictions on kernel perf event calls
 # http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
