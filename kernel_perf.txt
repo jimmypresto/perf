@@ -12,11 +12,16 @@
 # Make sure you have extracted/installed matching kernel symbols and headers. Instructions:
 #    https://github.com/jimmypresto/perf/blob/a031fb7819a08d5aed36e0e0bd13b89879072a81/bpftrace.txt#L6
 
+# Search and force install a close-and-newer linux-tools package version
+apt-cache search linux-tools | grep 'tools\-4.*generic'
+apt install -y linux-tools-4.18.0-25-generic
+
+# And symlink the installed linux tools version to the asking kernel version (`uname -r`)
+ln -s /usr/lib/linux-tools/4.18.0-25-generic /usr/lib/linux-tools/4.9.184-linuxkit
+
 # The docker container itself, a bit better to use it
 #   https://github.com/linuxkit/linuxkit/blob/master/docs/kernel-perf.md
-# And symlink your previously installed kernel tools to the asking kernel version (`uname -r`)
 alias perf=/proc/1/root/usr/bin/perf
-ln -s /usr/lib/linux-tools/4.18.0-25-generic /usr/lib/linux-tools/4.9.184-linuxkit
 
 # Alternative way to force install perf; it might work too, less preferred 
 # https://github.com/JanitorTechnology/dockerfiles/issues/188
