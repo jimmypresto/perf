@@ -9,6 +9,8 @@
 # Then docker-compose run like this:
 #   docker-compose run -v ~/hostlogs:/var/log/hostlogs -p 8080:8080 -p 8082:8082 <service> bash
 
+# https://github.com/linuxkit/linuxkit/blob/master/docs/kernel-perf.md
+# The docker container contains the perf tool; an alternative way to install kernel perf
 # https://github.com/JanitorTechnology/dockerfiles/issues/188
 sudo apt-get update -q
 sudo apt-get install -qy linux-tools-generic
