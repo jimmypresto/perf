@@ -15,3 +15,6 @@ libruby2.5:amd64: /usr/lib/x86_64-linux-gnu/libruby-2.5.so.2.5.5
 # Which repo provides a package
 apt-cache showpkg libruby2.5:amd64
 2.5.5-1bbox1~bionic1 (/var/lib/apt/lists/ppa.launchpad.net_brightbox_ruby-ng_ubuntu_dists_bionic_main_binary-amd64_Packages.lz4) (/var/lib/dpkg/status)
+
+# Watch thread running statuses every second on worker threads of a puma process
+watch -n1 "awk '/^Name/;/^Stat/' /proc/2167/task/*/status | sed '$!N;s/\n/ /' | grep 'puma '"
