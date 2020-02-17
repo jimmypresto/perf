@@ -1,0 +1,12 @@
+# wan ipv4 address
+ifconfig re0 | awk '/inet / {print $2}'
+
+# dhcp renew
+dhclient re0
+
+# duckdns
+# https://www.duckdns.org/spec.jsp
+# https://duckdns.org/update/{YOURDOMAIN}/{YOURTOKEN}[/{YOURIPADDRESS}]
+
+# dig short
+dig +short {YOURDOMAIN}.duckdns.org
