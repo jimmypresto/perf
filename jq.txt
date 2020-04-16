@@ -1,3 +1,6 @@
+# Iterate an array of items
+cat array_of_items.json | jq -c '.[]'
+
 # Find certain event log's json strings, pipe couple field values into csv format 
 cat a.log | jq -r '. | select(.event=="EVENT_YOU_CARE") | [.field1,.["@field2"],.field3] | @csv'
 
