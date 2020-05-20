@@ -1,3 +1,4 @@
+https://blogs.apache.org/hbase/
 
 https://www.youtube.com/watch?v=C5yy81u6IEw
 Forward dedupe chain
@@ -5,3 +6,9 @@ F0 -> F1 -> F2
 Full bits on the latest version. Earlier versions referring to it for unchanged bits
 Fast access on last version; quick deletion on old versions
 Backup better on compressions and less bits uploads
+
+https://www.youtube.com/watch?v=1kZu0Y5KhxM
+Logical hot, warm, cold categories
+Integrate with data compacting layers, using date-tier algo than size-tier, to output:
+- A secondary field in rowkey, timestamp for faster query (like an alpha-beta cut to focus on warm hdfs file search),
+- Storage media selection (ram, ssd, hdd)
