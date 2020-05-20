@@ -9,6 +9,9 @@ Backup better on compressions and less bits uploads
 
 https://www.youtube.com/watch?v=1kZu0Y5KhxM
 Logical hot, warm, cold categories
-Integrate with data compacting layers, using date-tier algo than size-tier, to output:
+Layered compaction. Integrate with data compacting layers, using date-tier algo than size-tier, to output:
 - A secondary field in rowkey, timestamp for faster query (like an alpha-beta cut to focus on warm hdfs file search),
 - Storage media selection (ram, ssd, hdd)
+Lazy seek
+Prefix bloom filter. A standard technique to use a top-row KV in hfile to determine a hit, so to avoid whole file seek on non-hit hfiles.
+Secondary field range. Extend by building another top-row KV on secondary key field, so to reduce false-positves on bloom filter searches resulting in multiple hfile search.
