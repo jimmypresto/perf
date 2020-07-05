@@ -1,0 +1,12 @@
+# After clonzilla
+# Boot in Ubuntu live CD (Try Ubuntu)
+
+sudo mount /dev/nvme0n1p /mnt
+sudo grub-install /dev/nvme0n1 --root-directory=/mnt/
+
+sudo mount --bind /dev /mnt/dev
+sudo mount --bind /proc /mnt/proc
+sudo mount --bind /sys /mnt/sys
+sudo chroot /mnt
+
+sudo update-grub
