@@ -20,6 +20,18 @@ cat ./composite.json | jq --raw-output -s '.[] | [.field1, .field2, .field3, .fi
 # Output selected fields in string format is better than @csv or @tsv
 awk '/text1|text2/' a.json | jq '. | "\(.field1), \(.field2), \(.["@timestamp"])"'
 
+# awk events and jq them with columns you want
+awk '/event1|event2|event3' log/your.log  | jq '. | "\(.id),\(.["@timestamp"]),\(.event),\(.elapsed)"' | sed 's/"//g' | sort -k1 -t,
+
+
+# In container with traffic, this rbtrace dumps all call traces; only run it for few seconds (5) then ctrl+c
+rbtrace -p <puma_pid> --firehose > /tmp/firehost.txt
+# Find methods with time measurements and keep them separately
+awk '/\<[0-9\.]+\>/' /tmp/firehose.txt | sed -E -e 's/^\s+//g' > /tmp/firehose_timings.txt
+cat /tmp/firehose_timings.txt | sed 's/[\<\>]//g' > /tmp/firehose_timings2.txt
+# Group by method names and sum up their totals 
+awk -F" " '{ a[$1]+=$2 } END { for (i in a) { printf "%s %.10f\n", i, a[i] } }' /tmp/firehose_timings2.txt | sort -nk2 > /tmp/firehose_summary.txt
+
 # Many text2 events with id/timestamp/elapsed 
 # Create a single item, grouped by id, with an array of all text1 events (b.log)
 # A text1 event with a timestamp (b) per id is used to filter out text2 events older than the b
