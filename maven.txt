@@ -1,0 +1,3 @@
+mvn dependency:tree
+mvn dependency:list-repositories
+mvn versions:display-dependency-updates
