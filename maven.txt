@@ -4,6 +4,27 @@ mvn versions:display-dependency-updates
 mvn dependency:analyze-dep-mgt
 mvn dependency:list-repositories
 
+mvn versions:display-dependency-updates
+mvn versions:use-releases
+mvn versions:use-next-releases
+mvn versions:use-latest-releases
+
 https://maven.apache.org/pom.html#version-order-specification
 https://maven.apache.org/pom.html#version-order-testing
 https://maven.apache.org/plugins/maven-dependency-plugin/usage.html
+
+<ruleset comparisonMethod="maven" ...>
+    <!-- GLOBAL -->
+    <ignoreVersions>
+        <ignoreVersion type="regex">.*-beta</ignoreVersion>
+    </ignoreVersions>
+    <!-- PER-RULE -->
+    <rules>
+        <rule groupId="com.mycompany.maven" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">.*-RELEASE</ignoreVersion>
+                <ignoreVersion>2.1.0</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+    </rules>    
+</ruleset>
