@@ -1,3 +1,9 @@
 mvn dependency:tree
-mvn dependency:list-repositories
 mvn versions:display-dependency-updates
+
+mvn dependency:analyze-dep-mgt
+mvn dependency:list-repositories
+
+https://maven.apache.org/pom.html#version-order-specification
+https://maven.apache.org/pom.html#version-order-testing
+https://maven.apache.org/plugins/maven-dependency-plugin/usage.html
