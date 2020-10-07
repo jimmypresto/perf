@@ -1,3 +1,5 @@
+mvn install -pl <module> -am
+
 mvn dependency:tree
 mvn versions:display-dependency-updates
 
