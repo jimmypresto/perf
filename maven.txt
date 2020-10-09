@@ -4,6 +4,7 @@ mvn dependency:tree
 mvn versions:display-dependency-updates
 
 mvn dependency:analyze-dep-mgt
+mvn dependency:build-classpath
 mvn dependency:list-repositories
 
 mvn versions:display-dependency-updates
