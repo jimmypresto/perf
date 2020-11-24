@@ -1,0 +1,19 @@
+
+# Reverse SSH tunnel from target to host
+$ ssh -N -R 5009:localhost:5009 user@<host>
+
+# On the target machine, launch java app or test with the agent listening
+mvn test -Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5009"
+java  -Xdebug -Xrunjdwp:transport=dt_socket,address=5009,server=y,suspend=n -jar example.jar com.example.App "arg 1"
+
+# Enable SSH on Mac: System Preferences > Sharing > Remote Login
+# Accept only public key authentication
+$ sudo cat /etc/ssh/sshd_config
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+
+$ sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
+$ sudo launchctl start /System/Library/LaunchDaemons/ssh.plist
+
+eval `ssh-agent -s`
+lsof -P -iTCP -sTCP:LISTEN
