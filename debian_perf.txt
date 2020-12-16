@@ -18,3 +18,18 @@ cd /
 sudo tar xvf /var/log/hostlogs/kernel-dev.tar
 sudo tar xvf /var/log/hostlogs/kernel-headers.tar
 
+# Install bpftrace on Debian
+https://github.com/iovisor/bpftrace/blob/master/INSTALL.md#debian-package
+sudo apt update
+sudo apt install bpftrace
+
+# Build Install bcc on debian
+https://github.com/iovisor/bcc/blob/master/INSTALL.md#debian--binary
+sudo apt install bpfcc-tools python-bpfcc libbpfcc libbpfcc-dev
+
+sudo apt-get -y install bison build-essential cmake flex git libedit-dev \
+  libllvm6.0 llvm-6.0-dev libclang-6.0-dev python zlib1g-dev libelf-dev
+
+# Follow instructions of sub-section: 'Ubuntu - Source' > 'Install and compile BCC'
+# git-clone bcc and cmake/make
+# https://github.com/iovisor/bcc/blob/master/INSTALL.md#ubuntu---source
