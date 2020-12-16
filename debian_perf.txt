@@ -1,0 +1,20 @@
+
+# Copy matching linuxkit kernel headers and kernel-dev
+#   https://github.com/falcosecurity/falco/issues/657
+# Save following lines, change the kernel version string (5.4.39) to yours, in a dockerfile (linuxkit-debian.dockfile)
+FROM linuxkit/kernel:5.4.39 AS ksrc
+FROM ubuntu:bionic
+COPY --from=ksrc /kernel-dev.tar /
+COPY --from=ksrc /kernel-headers.tar /
+CMD ["/bin/bash"]
+
+# Docker build/run and copy tar files out to your host
+docker build -f linuxkit-debian.dockfile -t linuxkit-kernel-headers:5.4.39 .
+# Later we will extract these tar files onto your container's root folder
+docker run --rm -it -v ~/hostlogs:/var/log/hostlogs linuxkit-kernel-headers:4.9.184 /bin/bash
+# In docker
+cp /*.tar /var/log/hostlogs
+cd /
+sudo tar xvf /var/log/hostlogs/kernel-dev.tar
+sudo tar xvf /var/log/hostlogs/kernel-headers.tar
+
