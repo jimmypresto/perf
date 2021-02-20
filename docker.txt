@@ -6,6 +6,12 @@ docker run --rm -it --cpus=".5" --cpuset-cpus=1 -p 8080:8080 <repo>:<tag>
 docker run -v ~/hostlogs:/var/log/hostlogs --env-file ./a.env -p 1234:1234 -p 8080:8080 -p 3000:3000 <repo>:<tag>
 docker run -u root -it <instance> bash
 
+# A detached container run died without console output
+docker events
+# Grab the instance id of 'container die' message from the events output and paste to next docker logs command
+# <datetime> container die 834c7e793f83fd138a924499e180ae25d1c6a45a105b252aa4f37ad1e6810029
+docker logs 834c7e793f83fd138a924499e180ae25d1c6a45a105b252aa4f37ad1e6810029
+
 # Once a container exited, not being removed, restart with the exited container id
 docker start -a <container_id>
 
