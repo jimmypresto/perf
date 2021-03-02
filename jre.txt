@@ -1,0 +1,6 @@
+/usr/libexec/java_home -V
+
+https://github.com/AdoptOpenJDK/homebrew-openjdk
+$ brew tap AdoptOpenJDK/openjdk
+$ brew search adoptopenjdk
+$ brew install --cask <version>
