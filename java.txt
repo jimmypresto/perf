@@ -1,3 +1,5 @@
+# https://theboreddev.com/analysing-jit-compilation-in-jvm/
+-XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:LogFile=jit_compiler.log
 
 # Reverse SSH tunnel from target to host
 $ ssh -N -R 5009:localhost:5009 user@<host>
