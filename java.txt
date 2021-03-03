@@ -1,3 +1,4 @@
+# https://www.oracle.com/technical-resources/articles/java/architect-evans-pt1.html
 # https://theboreddev.com/analysing-jit-compilation-in-jvm/
 -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:LogFile=jit_compiler.log
 
