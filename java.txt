@@ -1,12 +1,4 @@
-https://github.com/AdoptOpenJDK/jitwatch/wiki
-  <dependencies>
-    <dependency>
-      <groupId>com.chrisnewland</groupId>
-      <artifactId>jitwatch</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-  </dependencies>
-
+# Install the JitWatch plugin IntelliJ and follow https://github.com/yole/jitwatch-intellij
 # https://www.oracle.com/technical-resources/articles/java/architect-evans-pt1.html
 # https://theboreddev.com/analysing-jit-compilation-in-jvm/
 -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:LogFile=jit_compiler.log
