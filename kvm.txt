@@ -1,0 +1,11 @@
+$ virt-install \
+-n ubuntu1804 \
+--description "Ubuntu 18.04" \
+--os-type=Linux \
+--os-variant=ubuntu18 \
+--ram=4096 \
+--vcpus=6 \
+--disk path=/media/7WD40EFRX/vm/ubuntu-1804,bus=virtio,size=50 \
+--graphics none \
+--cdrom /media/7WD40EFRX/vm/ubuntu-18.04.5-live-server-amd64.iso \
+--network bridge:br0
