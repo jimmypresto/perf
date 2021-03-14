@@ -7,6 +7,7 @@ $ sudo apt-get update
 $ sudo apt install linux-image-`uname -r`-dbgsym
 $ sudo apt install linux-tools-`uname -r` linux-tools-generic linux-tools-common
 $ sudo apt install bcc bpfcc-tools
+$ sudo snap install bpftrace
 
 # http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
 $ sudo sh -c 'echo 0 > /proc/sys/kernel/perf_event_paranoid'
