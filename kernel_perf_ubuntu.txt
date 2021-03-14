@@ -18,7 +18,7 @@ $ sudo echo 0 > /proc/sys/kernel/kptr_restrict
 # http://www.brendangregg.com/perf.html
 #   Many other kernel perf usages
 
-git clone --depth 1 https://github.com/brendangregg/FlameGraph
-cd FlameGraph
-perf record –F 99 -a –g --call-graph dwarf -- sleep 60
-perf script | ./stackcollapse-perf.pl | ./flamegraph.pl > perf.svg
+$ git clone --depth 1 https://github.com/brendangregg/FlameGraph
+$ cd FlameGraph
+$ perf record –F 99 -a –g --call-graph dwarf -- sleep 60
+$ perf script | ./stackcollapse-perf.pl | ./flamegraph.pl > perf.svg
