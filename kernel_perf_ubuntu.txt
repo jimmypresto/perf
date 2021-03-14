@@ -11,6 +11,7 @@ $ sudo snap install bpftrace
 # http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
 $ sudo sh -c 'echo 0 > /proc/sys/kernel/perf_event_paranoid'
 $ sudo sh -c 'echo 0 > /proc/sys/kernel/kptr_restrict'
+$ sudo sysctl -w kernel.perf_event_max_stack=512
 
 # http://www.brendangregg.com/Slides/DockerCon2017_performance_analysis.pdf
 #   The 'perf record' command  samples at 99hz, all CPUs (-a), callstack/symbols (-g --call-graph) and for 60 seconds
