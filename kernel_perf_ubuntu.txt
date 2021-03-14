@@ -8,7 +8,6 @@ $ sudo apt install linux-image-`uname -r`-dbgsym
 $ sudo apt install linux-tools-`uname -r` linux-tools-generic linux-tools-common
 
 # http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
-#   Unlift docker restrictions on kernel perf event calls
 $ sudo echo 0 > /proc/sys/kernel/perf_event_paranoid
 $ sudo echo 0 > /proc/sys/kernel/kptr_restrict
 
