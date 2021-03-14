@@ -6,3 +6,19 @@ $ sudo apt-get update
 
 $ sudo apt install linux-image-`uname -r`-dbgsym
 $ sudo apt install linux-tools-`uname -r` linux-tools-generic linux-tools-common
+
+# http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
+#   Unlift docker restrictions on kernel perf event calls
+$ sudo echo 0 > /proc/sys/kernel/perf_event_paranoid
+$ sudo echo 0 > /proc/sys/kernel/kptr_restrict
+
+# http://www.brendangregg.com/Slides/DockerCon2017_performance_analysis.pdf
+#   The 'perf record' command  samples at 99hz, all CPUs (-a), callstack/symbols (-g --call-graph) and for 60 seconds
+#   Record IN the FlameGraph folder; the 'perf script' commands wants the perf.data file generated in same folder
+# http://www.brendangregg.com/perf.html
+#   Many other kernel perf usages
+
+git clone --depth 1 https://github.com/brendangregg/FlameGraph
+cd FlameGraph
+perf record –F 99 -a –g --call-graph dwarf -- sleep 60
+perf script | ./stackcollapse-perf.pl | ./flamegraph.pl > perf.svg
