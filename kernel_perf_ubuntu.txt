@@ -35,3 +35,7 @@ $ git clone --depth 1 https://github.com/brendangregg/FlameGraph
 $ cd FlameGraph
 $ perf record –F 99 -a –g --call-graph dwarf -- sleep 60
 $ perf script | ./stackcollapse-perf.pl | ./flamegraph.pl > perf.svg
+
+# Remaining issues
+# /lib/x86_64-linux-gnu/libc-2.27.so was updated (is prelink enabled?). Restart the long running apps that use it!
+# Failed to open /usr/lib/jvm/java-11-openjdk-amd64/lib/server/classes.jsa, continuing without symbols
