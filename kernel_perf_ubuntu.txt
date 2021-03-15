@@ -12,6 +12,9 @@ $ sudo snap install bpftrace
 #      bcc: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
 # bpftrace: https://github.com/iovisor/bpftrace/blob/master/INSTALL.md#building-bpftrace-1
 
+# kernel perf general usage & setup
+# https://www.usenix.org/sites/default/files/conference/protected-files/srecon18americas_slides_goldshtein.pdf
+
 # http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
 $ sudo sh -c 'echo 0 > /proc/sys/kernel/perf_event_paranoid'
 $ sudo sh -c 'echo 0 > /proc/sys/kernel/kptr_restrict'
