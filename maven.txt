@@ -31,3 +31,10 @@ https://maven.apache.org/plugins/maven-dependency-plugin/usage.html
         </rule>
     </rules>    
 </ruleset>
+
+
+                 <artifactId>maven-compiler-plugin</artifactId>
+                 <configuration>
++                  <compilerArgs>
++                    <arg>-XX:+PreserveFramePointer</arg>
++                  </compilerArgs>
