@@ -26,6 +26,10 @@ $ sudo sysctl -w kernel.perf_event_max_stack=512
 # http://www.brendangregg.com/perf.html
 #   Many other kernel perf usages
 
+# perf-map-agent
+# Build and create /tmp/perf-<pid>.map for the perf script command
+# bin/create-java-perf-map.sh <pid>
+
 $ git clone --depth 1 https://github.com/brendangregg/FlameGraph
 $ cd FlameGraph
 $ perf record –F 99 -a –g --call-graph dwarf -- sleep 60
