@@ -8,9 +8,12 @@ $ sudo apt install linux-image-`uname -r`-dbgsym linux-tools-`uname -r` linux-to
 $ sudo apt install clang bcc bpfcc-tools
 $ sudo snap install bpftrace
 
-# Enable bpftrace/bcc building (check with `sudo perf test`)
-$ sudo apt install bison cmake flex g++ git libelf-dev zlib1g-dev libfl-dev systemtap-sdt-dev binutils-dev llvm-7-dev llvm-7-runtime libclang-7-dev clang-7
-$ sudo apt install bison build-essential cmake flex git libedit-dev libllvm6.0 llvm-6.0-dev libclang-6.0-dev python zlib1g-dev libelf-dev libfl-dev
+# Instructions to build bcc: https://github.com/iovisor/bcc/blob/master/INSTALL.md#install-and-compile-bcc-3
+# Instructions to build bpftrace: https://github.com/iovisor/bpftrace/blob/master/INSTALL.md#building-bpftrace-1
+
+# Test this bpftrace/perf commands; make sure no errors.
+#     sudo bpftrace -e 'tracepoint:syscalls:sys_enter_open { printf("%s %s\n", comm, str(args->filename)); }'
+#     sudo perf test
 
 # http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
 $ sudo sh -c 'echo 0 > /proc/sys/kernel/perf_event_paranoid'
