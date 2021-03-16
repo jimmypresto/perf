@@ -14,6 +14,7 @@ $ sudo snap install bpftrace
 
 # kernel perf general usage & setup
 # https://www.usenix.org/sites/default/files/conference/protected-files/srecon18americas_slides_goldshtein.pdf
+#   java -XX:+PreserveFramePointer
 
 # http://www.brendangregg.com/Slides/LISA2017_Container_Performance_Analysis.pdf
 $ sudo sh -c 'echo 0 > /proc/sys/kernel/perf_event_paranoid'
@@ -32,7 +33,7 @@ $ sudo sysctl -w kernel.perf_event_max_stack=512
 
 # perf-map-agent
 # Build and create /tmp/perf-<pid>.map for the perf script command
-# bin/create-java-perf-map.sh <pid>
+# bin/create-java-perf-map.sh $(pidof java)
 
 $ git clone --depth 1 https://github.com/brendangregg/FlameGraph
 $ cd FlameGraph
@@ -40,5 +41,4 @@ $ perf record –F 99 -a –g --call-graph dwarf -- sleep 60
 $ perf script | ./stackcollapse-perf.pl | ./flamegraph.pl > perf.svg
 
 # Remaining issues
-# /lib/x86_64-linux-gnu/libc-2.27.so was updated (is prelink enabled?). Restart the long running apps that use it!
 # Failed to open /usr/lib/jvm/java-11-openjdk-amd64/lib/server/classes.jsa, continuing without symbols
