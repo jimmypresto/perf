@@ -37,8 +37,9 @@ $ sudo sysctl -w kernel.perf_event_max_stack=512
 
 $ git clone --depth 1 https://github.com/brendangregg/FlameGraph
 $ cd FlameGraph
-$ perf record –F 99 -a –g -R -- sleep 60
-$ perf script | ./stackcollapse-perf.pl --pid --all | ./flamegraph.pl --colors java > perf.svg
+# perf record –F 99 -a –g -R -- sleep 60
+# perf record –F 99 –g -R -p $(pidof java) -- sleep 60
+# perf script | ./stackcollapse-perf.pl --pid --all | ./flamegraph.pl --colors java > perf.svg
 
 # Remaining issues
 # Failed to open /usr/lib/jvm/java-11-openjdk-amd64/lib/server/classes.jsa, continuing without symbols
