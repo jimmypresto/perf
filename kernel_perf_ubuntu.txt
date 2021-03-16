@@ -37,7 +37,7 @@ $ sudo sysctl -w kernel.perf_event_max_stack=512
 
 $ git clone --depth 1 https://github.com/brendangregg/FlameGraph
 $ cd FlameGraph
-$ perf record –F 99 -a –g -- sleep 60
+$ perf record –F 99 -a –g --call-graph dwarf -- sleep 60
 $ perf script | ./stackcollapse-perf.pl --pid --all | ./flamegraph.pl --colors java > perf.svg
 
 # Remaining issues
