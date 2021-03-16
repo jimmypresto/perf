@@ -41,5 +41,10 @@ $ cd FlameGraph
 # perf record –F 99 –g -R -p $(pidof java) -- sleep 60
 # perf script | ./stackcollapse-perf.pl --pid --all | ./flamegraph.pl --colors java > perf.svg
 
+# Flamegraph on combined CPU offline and wakeup. Use bcc's offwaketime.
+# http://www.brendangregg.com/blog/2016-02-01/linux-wakeup-offwake-profiling.html
+# offwaketime -fu 10 > out.offwake
+# flamegraph.pl --color=chain --countname=us < out.offwake > offwake.svg
+
 # Remaining issues
 # Failed to open /usr/lib/jvm/java-11-openjdk-amd64/lib/server/classes.jsa, continuing without symbols
