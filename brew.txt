@@ -1,0 +1,3 @@
+# brew switch openssl 1.0.2t (brew removed the switch command)
+# dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
+brew install rbenv/tap/openssl@1.0
