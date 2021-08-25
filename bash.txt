@@ -1,6 +1,9 @@
 # Carve out an url string by sed
 sed -E 's,^.*(https://[^"]+).*,\1,g' <<< 'REMOVE "http://a.b/c" REMOVE'
 
+# Sed inline-edits, the -re option requires less escaping
+sed -i -re 's/set \-e/set \-ex/g' ${FILE}
+
 # Launch an interactive bash shell
 bash --init-file <(echo "ls; pwd")
 
