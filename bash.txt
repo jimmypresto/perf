@@ -21,3 +21,6 @@ apt-cache showpkg libruby2.5:amd64
 
 # Watch thread running statuses every second on worker threads of a puma process
 watch -n1 "awk '/^Name/;/^Stat/' /proc/2167/task/*/status | sed '$!N;s/\n/ /' | grep 'puma '"
+
+# Awk inline edits a file with a new second line
+echo "$(awk 'NR==1{print; print "ps -ef"} NR!=1' ${FILE})" > ${FILE}
