@@ -12,6 +12,11 @@ mvn versions:use-releases
 mvn versions:use-next-releases
 mvn versions:use-latest-releases
 
+mvn clean install -Dverbose=true -Dmaven.test.skip=true
+
+mvn clean jsonschema2pojo:generate
+mvn org.jsonschema2pojo:jsonschema2pojo-maven-plugin:1.1.0:generate
+
 https://maven.apache.org/pom.html#version-order-specification
 https://maven.apache.org/pom.html#version-order-testing
 https://maven.apache.org/plugins/maven-dependency-plugin/usage.html
