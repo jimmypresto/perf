@@ -1,2 +1,4 @@
 bundle audit --update
 bundle update --patch --conservative
+
+gem list dotenv-rails --remote --all | grep '^dotenv-rails'
