@@ -2,5 +2,6 @@ npx npm-check-updates -u
 
 npm list formidable
 
+$ node --max-old-space-size=500
 > v8.getHeapStatistics()
-  heap_size_limit: 4345298944
+  heap_size_limit: 574619648
