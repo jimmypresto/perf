@@ -1,0 +1,5 @@
+From Jersey user guide, A.4. List of client configuration properties
+https://eclipse-ee4j.github.io/jersey.github.io/documentation/latest/appendix-properties.html#d0e21979
+
+-Djersey.config.client.logging.logger.level={OFF,SEVERE,WARNING,INFO,CONFIG,FINE,FINER,FINEST,ALL}
+-Djersey.config.client.logging.verbosity={HEADERS_ONLY,PAYLOAD_TEXT,PAYLOAD_ANY}
