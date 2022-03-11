@@ -1,13 +1,15 @@
 mvn install -pl <module> -am
 
 mvn dependency:tree
+
+# Seeking a maven command to show available versions of an artifact
+# For now, browse artifact web server or pull its metafile zip file
 mvn versions:display-dependency-updates
 
 mvn dependency:analyze-dep-mgt
 mvn dependency:build-classpath
 mvn dependency:list-repositories
 
-mvn versions:display-dependency-updates
 mvn versions:use-releases
 mvn versions:use-next-releases
 mvn versions:use-latest-releases
