@@ -1,0 +1,11 @@
+
+# When proxy_pass encounters Can not resolve with Operation timed out
+#   1. Use resolver directive
+#   2. Move the URL variable into an upstream block
+#   3. Use IP address instead
+
+# On slow machine/vpn, increase these proxy_pass timeouts
+proxy_connect_timeout 60s;
+proxy_send_timeout 60s;
+proxy_read_timeout 60s;
+send_timeout 60s;
