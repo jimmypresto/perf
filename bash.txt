@@ -30,3 +30,6 @@ echo "$(awk 'NR==1{print; print "ps -ef"} NR!=1' ${FILE})" > ${FILE}
 
 # Poor man frequencies chart
 cat /tmp/sslparams.log | cut -d ' ' -f 2,2 | sort | uniq -c | sort -rn | perl -ane 'printf "%30s %s\n", $F[1], "="x$F[0];'
+
+# Get city/country info of public IP address
+curl --silent ipinfo.io/`dig +short myip.opendns.com @resolver1.opendns.com` | grep 'city\|country'
