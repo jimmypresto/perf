@@ -1,0 +1,2 @@
+# local rsync, -x on the same filesystem
+rsync -ax --no-compress --inplace --whole-file --numeric-ids --progress src/* dst/
